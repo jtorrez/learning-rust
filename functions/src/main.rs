@@ -1,13 +1,12 @@
 // this is valid function
-fn five() -> i32 {
-    5
+fn plus_one(x: i32) -> i32 {
+    x + 1
 }
 
 fn main() {
-    let x = five();
+    let x = 5;
 
-
-    another_function(x);
+    another_function(plus_one(x));
 }
 
 fn another_function (x: i32) {
