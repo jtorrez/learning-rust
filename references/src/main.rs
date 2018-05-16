@@ -1,14 +1,13 @@
 fn main() {
-    let s1 = String::from("hello");
+    let mut s = String::from("hello"); // must denote variable as mutable in definition to allow mutable borrows
 
-    let len = calculate_length(&s1); // & denotes borrow
-
-    println!("The length of '{}' is {}.", s1, len);
+    change(&mut s); // &mut denotes mutable borrow (write access)
 }
+// s goes out of scope here and is dropped
 
-// calculate length borrows (read only access) s so that
-// ownership of s is not passed to the function and s
-// is not dropped when it goes out of scope in the function
-fn calculate_length(s: &String) -> usize {
-    s.len()
-}
+// change takes a mutable reference (write access) to
+// s and mutates it
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+} // nothing special happens here because some_string was
+  // borrowed and not owned by change
