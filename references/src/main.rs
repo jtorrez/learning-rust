@@ -1,23 +1,13 @@
-// valid example of multiple mutable borrows in a program
-// data races prevented at COMPILE time
+// example of invalid simultaneous borrows of different kinds
 fn main() {
-    let mut = String::from("hello");
+    let mut s = String::from("hello");
 
-    {
-        let r1 = &mut s;
-    }
-    // r1 goes out of scope so it is dropped
-    // which means we can make new mutable references/borrows
-    // with no issues
-
-    let r2 = &mut s;
-
-    // bad example of multiple mutable borrows in a program
-    //
-    // let mut = String::from("hello");
-    // let r1 = &mut s;
-    // let r2 = &mut s;
-    //
-    // not valid because both references are in the same scope,
-    // i.e., the references could occur simultaneously
+    // Invalide because there are multiple references in the
+    // same scope, which COULD occur simultaneously and result
+    // in a data race. The race in this example is the mutation
+    // of r3 could occur before the immutable reference/borrow
+    // despite the ordering of the statements
+    let r1 = &s;
+    let r2 = &s;
+    let r3 = &mut s;
 }
