@@ -6,9 +6,12 @@ struct User {
 }
 
 fn build_new_active_user(email: String, username: String) -> User {
+    // uses struct init shorthand
+    // if the variables are the same name as the struct field
+    // you don't have to explicitly write the struct field name
     User {
-        email: email,
-        username: username,
+        email,
+        username,
         active: true,
         sign_in_count: 1,
     }
