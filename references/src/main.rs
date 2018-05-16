@@ -1,13 +1,23 @@
+// valid example of multiple mutable borrows in a program
+// data races prevented at COMPILE time
 fn main() {
-    let mut s = String::from("hello"); // must denote variable as mutable in definition to allow mutable borrows
+    let mut = String::from("hello");
 
-    change(&mut s); // &mut denotes mutable borrow (write access)
+    {
+        let r1 = &mut s;
+    }
+    // r1 goes out of scope so it is dropped
+    // which means we can make new mutable references/borrows
+    // with no issues
+
+    let r2 = &mut s;
+
+    // bad example of multiple mutable borrows in a program
+    //
+    // let mut = String::from("hello");
+    // let r1 = &mut s;
+    // let r2 = &mut s;
+    //
+    // not valid because both references are in the same scope,
+    // i.e., the references could occur simultaneously
 }
-// s goes out of scope here and is dropped
-
-// change takes a mutable reference (write access) to
-// s and mutates it
-fn change(some_string: &mut String) {
-    some_string.push_str(", world");
-} // nothing special happens here because some_string was
-  // borrowed and not owned by change
