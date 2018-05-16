@@ -1,17 +1,22 @@
 fn main() {
-    let s = String::from("Hello, world!");
+    // create the variable my_string which is of String type
+    let my_string = String::from("hello world");
 
-    let fw = first_word(&s);
+    // API of first_word allows passing of all string slices
+    let word = first_word(&my_string[..]);
 
-    println!("The first word is {}", fw);
+    // variable of type &str, a string slice
+    let my_string_literal = "hello world";
 
-    // s.clear()
-    // ^ results in an error because first_word makes
-    // an immutable borrow and s.clear() is a mutable borrow
-    // which can't co-occur in the same scope
+    // pass an explicit string slice of the string literal
+    let word = first_word(&my_string_literal[..]);
+
+    // type of string literals is implicitly &str, so this
+    // works too
+    let word = first_word(my_string_literal);
 }
 
-fn first_word(s: &String) -> &str {
+fn first_word(s: &str) -> &str {
     let bytes = s.as_bytes();
 
     for (i, &item) in bytes.iter().enumerate() {
