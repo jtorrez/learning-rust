@@ -1,10 +1,12 @@
+// declares the client module here, but contents of module are in the client.rs file
+// mod <module> must be defined in lib.rs, rust doesn't know how to look elsewhere for
+// module definitions
+mod client;
 
-// name of the module is network
 mod network {
     fn connect() {
     }
-    // module is defined by mod, not by file
-    mod client {
+    mod server {
         fn connect() {
         }
     }
